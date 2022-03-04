@@ -15,28 +15,32 @@ export default defineComponent({
 					{
 						title: 'child1',
 						children: [
-							{
-								title: 'subchild 11',
-								children: [
-									{
-										title: 'subsubchild 111',
-										children: []
-									},
-									{
-										title: 'subsubchild 112',
-										children: []
-									},
-									{
-										title: 'subsubchild 113',
-										children: []
-									},
-								]
-							},
-							{
-								title: 'subchild 12',
-								children: []
-							}
+							// {
+							// 	title: 'subchild 11',
+							// 	children: [
+							// 		{
+							// 			title: 'subsubchild 111',
+							// 			children: []
+							// 		},
+							// 		{
+							// 			title: 'subsubchild 112',
+							// 			children: []
+							// 		},
+							// 		{
+							// 			title: 'subsubchild 113',
+							// 			children: []
+							// 		},
+							// 	]
+							// },
+							// {
+							// 	title: 'subchild 12',
+							// 	children: []
+							// }
 						]
+					},
+					{
+						title: 'child2',
+						children: []
 					}
 				]
 			} as Bloc
