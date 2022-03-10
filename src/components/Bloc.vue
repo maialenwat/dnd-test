@@ -1,9 +1,9 @@
 <script lang="ts">
-import { defineComponent, PropType, setBlockTracking } from 'vue'
+import { defineComponent, PropType } from 'vue';
 import Bloc from '../assets/Bloc';
 
 export default defineComponent({
-    name: 'BlocComponent',
+    name: "BlocComponent",
     props: {
         bloc: {
             type: Object as PropType<Bloc>,
@@ -19,12 +19,11 @@ export default defineComponent({
         }
     }
 })
-
 </script>
 
 <template>
-    <section class="flex bg-blue-300">
-        <article class="flex items-center bg-green-200 p-5">
+    <section class="flex">
+        <article class="flex items-center p-5">
             <p
                 class="w-40 h-12 flex justify-center items-center border-solid border-2 border-rose-400 bg-gray-800 text-white"
             >{{ bloc.title }}</p>

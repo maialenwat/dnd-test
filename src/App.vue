@@ -5,41 +5,15 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
 	components: {
-		BlocComponent
-	},
+    BlocComponent
+},
 	data() {
 		return {
-			node: {
+			element: {
 				title: 'main',
 				children: [
 					{
 						title: 'child1',
-						children: [
-							// {
-							// 	title: 'subchild 11',
-							// 	children: [
-							// 		{
-							// 			title: 'subsubchild 111',
-							// 			children: []
-							// 		},
-							// 		{
-							// 			title: 'subsubchild 112',
-							// 			children: []
-							// 		},
-							// 		{
-							// 			title: 'subsubchild 113',
-							// 			children: []
-							// 		},
-							// 	]
-							// },
-							// {
-							// 	title: 'subchild 12',
-							// 	children: []
-							// }
-						]
-					},
-					{
-						title: 'child2',
 						children: []
 					}
 				]
@@ -54,7 +28,7 @@ export default defineComponent({
 
 <template>
 	<main>
-		<BlocComponent :bloc="node" />
+		<BlocComponent :bloc="element" />
 	</main>
 </template>
 
