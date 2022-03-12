@@ -15,7 +15,7 @@ export default defineComponent({
         addChild() {
             this.bloc.children.push({
                 id: uuid.v4(),
-                title: `${this.bloc.title}${this.bloc.children.length + 1}`,
+                title: (this.bloc.isMain) ? `child${this.bloc.children.length + 1}` : `${this.bloc.title}${this.bloc.children.length + 1}`,
                 children: [],
                 isMain: false
             })
@@ -33,11 +33,13 @@ export default defineComponent({
 <template>
     <section class="flex">
         <article class="flex items-center p-5">
+            <hr v-if="!bloc.isMain" class="w-10 h-1 bg-rose-400" />
             <input
                 type="text"
                 v-model="bloc.title"
                 class="w-44 h-12 flex text-center items-center border-solid border-2 outline-none border-rose-400 bg-gray-800 text-white"
             />
+            <hr v-if="bloc.children.length < 1" class="w-10 h-1 bg-rose-400" />
             <button
                 @click="addChild()"
                 v-if="bloc.children.length < 3"
@@ -79,7 +81,11 @@ export default defineComponent({
         </article>
 
         <section id="child" class="flex-col">
-            <BlocComponent v-for="child in bloc.children" :bloc="child" @delete="deleteChild($event)" />
+            <BlocComponent
+                v-for="child in bloc.children"
+                :bloc="child"
+                @delete="deleteChild($event)"
+            />
         </section>
     </section>
 </template>
