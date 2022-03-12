@@ -2,25 +2,29 @@
 import BlocComponent from './components/Bloc.vue';
 import Bloc from './assets/Bloc';
 import { defineComponent } from 'vue';
+import * as uuid from 'uuid'
 
 export default defineComponent({
 	components: {
-    BlocComponent
-},
+		BlocComponent
+	},
 	data() {
 		return {
 			element: {
+				id: uuid.v4(),
 				title: 'main',
 				children: [
 					{
+						id: uuid.v4(),
 						title: 'child1',
-						children: []
+						children: [],
+						isMain: false
 					}
-				]
+				],
+				isMain: true
 			} as Bloc
 		}
 	}
-
 })
 
 

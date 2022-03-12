@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import Bloc from '../assets/Bloc';
+import * as uuid from 'uuid'
 
 export default defineComponent({
     name: "BlocComponent",
@@ -11,11 +12,19 @@ export default defineComponent({
         }
     },
     methods: {
-        addNewChild(bloc: Bloc) {
-            bloc.children.push({
-                title: `${bloc.title}${bloc.children.length + 1}`,
-                children: []
+        addChild() {
+            this.bloc.children.push({
+                id: uuid.v4(),
+                title: `${this.bloc.title}${this.bloc.children.length + 1}`,
+                children: [],
+                isMain: false
             })
+        },
+        deleteChild(id: string) {
+            this.bloc.children = this.bloc.children.filter(child => child.id !== id)
+        },
+        onDelete() {
+            this.$emit('delete', this.bloc.id)
         }
     }
 })
@@ -24,11 +33,13 @@ export default defineComponent({
 <template>
     <section class="flex">
         <article class="flex items-center p-5">
-            <p
-                class="w-40 h-12 flex justify-center items-center border-solid border-2 border-rose-400 bg-gray-800 text-white"
-            >{{ bloc.title }}</p>
+            <input
+                type="text"
+                v-model="bloc.title"
+                class="w-44 h-12 flex text-center items-center border-solid border-2 outline-none border-rose-400 bg-gray-800 text-white"
+            />
             <button
-                @click="addNewChild(bloc)"
+                @click="addChild()"
                 v-if="bloc.children.length < 3"
                 class="absolute p-0.5 right-2 rounded-full border-solid border-2 border-rose-400 bg-gray-800"
             >
@@ -45,10 +56,30 @@ export default defineComponent({
                     />
                 </svg>
             </button>
+
+            <button
+                type="submit"
+                @click="onDelete()"
+                class="absolute p-0.5 left-2 rounded-full border-solid border-2 border-gray-300 bg-gray-800"
+                v-if="bloc.isMain === false"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-white"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </button>
         </article>
 
         <section id="child" class="flex-col">
-            <BlocComponent v-for="child in bloc.children" :bloc="child" />
+            <BlocComponent v-for="child in bloc.children" :bloc="child" @delete="deleteChild($event)" />
         </section>
     </section>
 </template>
