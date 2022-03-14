@@ -12,6 +12,7 @@ export default defineComponent({
 		return {
 			element: {
 				id: uuid.v4(),
+				color: '#E97F7F',
 				title: 'main',
 				children: [],
 				isMain: true

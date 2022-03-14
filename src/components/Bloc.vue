@@ -15,6 +15,7 @@ export default defineComponent({
       addChild() {
          this.bloc.children.push({
             id: uuid.v4(),
+            color: ['#E9DE7F', '#8BE97F', '#7FC0E9'][this.bloc.children.length],
             title: (this.bloc.isMain) ? `child${this.bloc.children.length + 1}` : `${this.bloc.title}${this.bloc.children.length + 1}`,
             children: [],
             isMain: false
@@ -32,15 +33,12 @@ export default defineComponent({
 
 <template>
    <section class="flex items-center">
-      <article class="flex items-center py-5">
-         <!-- LEFT LINE -->
-         <hr v-if="!bloc.isMain" class="w-12 h-1 bg-rose-400" />
-
+      <article :id="bloc.id" class="flex items-center py-5">
          <!-- DELETE -->
          <button
             type="submit"
             @click="onDelete()"
-            class="absolute p-0.5 left-9 z-10 rounded-full border-solid border-2 border-gray-300 bg-gray-800"
+            class="absolute p-0.5 -left-3 z-10 rounded-full border-solid border-2 border-gray-300 bg-gray-800"
             v-if="!bloc.isMain"
          >
             <svg
@@ -60,17 +58,23 @@ export default defineComponent({
          <input
             type="text"
             v-model="bloc.title"
-            class="w-44 h-12 p-6 flex text-center items-center truncate border-solid border-2 outline-none border-rose-400 bg-gray-800 text-white"
+            v-bind:style="{ borderColor: bloc.color }"
+            class="w-44 h-12 p-6 flex text-center items-center truncate border-solid border-2 outline-none bg-gray-800 text-white"
          />
 
          <!-- RIGHT LINE WITHOUT CHILDREN -->
-         <hr v-if="bloc.children.length < 1" class="w-10 h-1 bg-rose-400" />
+         <hr
+            v-if="bloc.children.length < 1"
+            class="w-10 h-1"
+            v-bind:style="{ backgroundColor: bloc.color }"
+         />
 
          <!-- ADD -->
          <button
             @click="addChild()"
             v-if="bloc.children.length < 3"
-            class="absolute p-0.5 -right-3 z-10 rounded-full border-solid border-2 border-rose-400 bg-gray-800"
+            v-bind:style="{ borderColor: bloc.color }"
+            class="absolute p-0.5 -right-3 z-10 rounded-full border-solid border-2 bg-gray-800"
          >
             <svg
                xmlns="http://www.w3.org/2000/svg"
@@ -88,10 +92,18 @@ export default defineComponent({
       </article>
 
       <!-- RIGHT LINE WITH SEVERAL CHILDREN -->
-      <hr v-if="bloc.children.length > 1" class="w-12 shrink-0 h-1 bg-rose-400" />
+      <hr
+         v-if="bloc.children.length > 1"
+         class="w-12 shrink-0 h-1"
+         v-bind:style="{ backgroundColor: bloc.color }"
+      >
 
-      <section id="child" class="flex-col">
-         <BlocComponent v-for="child in bloc.children" :bloc="child" @delete="deleteChild($event)" />
+      <section class="flex-col">
+         <section v-for="child in bloc.children" class="flex items-center">
+            <!-- LEFT LINE -->
+            <hr class="w-12 h-1" v-bind:style="{ backgroundColor: bloc.color }" />
+            <BlocComponent :bloc="child" @delete="deleteChild($event)" />
+         </section>
       </section>
    </section>
 </template>
