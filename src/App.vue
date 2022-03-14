@@ -13,14 +13,7 @@ export default defineComponent({
 			element: {
 				id: uuid.v4(),
 				title: 'main',
-				children: [
-					{
-						id: uuid.v4(),
-						title: 'child1',
-						children: [],
-						isMain: false
-					}
-				],
+				children: [],
 				isMain: true
 			} as Bloc
 		}
@@ -31,7 +24,7 @@ export default defineComponent({
 </script>
 
 <template>
-	<main>
+	<main class="h-full w-full">
 		<BlocComponent :bloc="element" />
 	</main>
 </template>
@@ -40,10 +33,6 @@ export default defineComponent({
 @import "./assets/base.css";
 
 #app {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 2rem;
-
 	font-weight: normal;
 }
 </style>
