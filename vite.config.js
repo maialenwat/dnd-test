@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/dnd-test/',
+    base: '/dnd-test/', //config for github pages
     plugins: [vue()],
     resolve: {
         alias: {
