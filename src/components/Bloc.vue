@@ -12,18 +12,28 @@ export default defineComponent({
       }
    },
    methods: {
+      /**
+       * Adds a new child component
+       */
       addChild() {
          this.bloc.children.push({
             id: uuid.v4(),
-            color: ['#E9DE7F', '#8BE97F', '#7FC0E9'][this.bloc.children.length],
-            title: (this.bloc.isMain) ? `child${this.bloc.children.length + 1}` : `${this.bloc.title}${this.bloc.children.length + 1}`,
+            color: ['#E9DE7F', '#8BE97F', '#7FC0E9'][this.bloc.children.length], //attribution of colors based on the child's index
+            title: (this.bloc.isMain) ? `child${this.bloc.children.length + 1}` : `${this.bloc.title}${this.bloc.children.length + 1}`, //automatic generation of bloc title
             children: [],
             isMain: false
          })
       },
+      /**
+       * deletes the child component by targeting the bloc's id
+       * @param id 
+       */
       deleteChild(id: string) {
          this.bloc.children = this.bloc.children.filter(child => child.id !== id)
       },
+      /**
+       * triggers the delete event
+       */
       onDelete() {
          this.$emit('delete', this.bloc.id)
       }

@@ -10,6 +10,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			//initialization of main bloc
 			element: {
 				id: uuid.v4(),
 				color: '#E97F7F',
