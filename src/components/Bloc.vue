@@ -109,7 +109,7 @@ export default defineComponent({
       >
 
       <section class="flex-col">
-         <section v-for="child in bloc.children" class="flex items-center">
+         <section v-for="child in bloc.children" :key="child.id" class="flex items-center">
             <!-- LEFT LINE -->
             <hr class="w-12 h-1" v-bind:style="{ backgroundColor: bloc.color }" />
             <BlocComponent :bloc="child" @delete="deleteChild($event)" />
